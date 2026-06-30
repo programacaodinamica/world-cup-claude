@@ -1,0 +1,98 @@
+{
+  "date": "2026-06-25",
+  "teams": {
+    "Argentina": [
+      {
+        "date_iso": "2026-06-22",
+        "date": "22 jun 2026",
+        "competition": "FIFA World Cup",
+        "home_team": "Argentina",
+        "away_team": "Austria",
+        "home_score": 2,
+        "away_score": 0,
+        "opponent": "Austria",
+        "is_home": true,
+        "result": "V",
+        "finished": true
+      }
+    ],
+    "França": [],
+    "Espanha": [],
+    "Inglaterra": [],
+    "Brasil": [
+      {
+        "date_iso": "2026-06-20",
+        "date": "20 jun 2026",
+        "competition": "FIFA World Cup",
+        "home_team": "Brazil",
+        "away_team": "Haiti",
+        "home_score": 3,
+        "away_score": 0,
+        "opponent": "Haiti",
+        "is_home": true,
+        "result": "V",
+        "finished": true
+      }
+    ],
+    "Portugal": [],
+    "Holanda": [
+      {
+        "date_iso": "2026-06-20",
+        "date": "20 jun 2026",
+        "competition": "FIFA World Cup",
+        "home_team": "Netherlands",
+        "away_team": "Sweden",
+        "home_score": 5,
+        "away_score": 1,
+        "opponent": "Sweden",
+        "is_home": true,
+        "result": "V",
+        "finished": true
+      }
+    ],
+    "Bélgica": [],
+    "Itália": [
+      {
+        "date_iso": "2026-03-26",
+        "date": "26 mar 2026",
+        "competition": "World Cup Qualifying UEFA",
+        "home_team": "Italy",
+        "away_team": "N.Ireland",
+        "home_score": 2,
+        "away_score": 0,
+        "opponent": "N.Ireland",
+        "is_home": true,
+        "result": "V",
+        "finished": true
+      }
+    ],
+    "Croácia": [
+      {
+        "date_iso": "2026-06-27",
+        "date": "27 jun 2026",
+        "competition": "FIFA World Cup",
+        "home_team": "Croatia",
+        "away_team": "Ghana",
+        "home_score": null,
+        "away_score": null,
+        "opponent": "Ghana",
+        "is_home": true,
+        "result": null,
+        "finished": false
+      },
+      {
+        "date_iso": "2026-06-07",
+        "date": "7 jun 2026",
+        "competition": "International Friendlies",
+        "home_team": "Croatia",
+        "away_team": "Slovenia",
+        "home_score": 2,
+        "away_score": 1,
+        "opponent": "Slovenia",
+        "is_home": true,
+        "result": "V",
+        "finished": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}FIFA Data App{% endblock %}</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js para o radar -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <!-- Tipografia inspirada na identidade visual da FIFA -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            // Paleta inspirada na FIFA: azul-marinho, azul elétrico e dourado
+            fifa: {
+              navy:   '#0A1A2F',
+              dark:   '#0E2440',
+              blue:   '#1E6CFF',
+              sky:    '#3DA6FF',
+              gold:   '#FFC72C',
+              red:    '#E4002B',
+              green:  '#00B140',
+            }
+          },
+          fontFamily: {
+            display: ['Oswald', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .font-display { font-family: 'Oswald', sans-serif; letter-spacing: .02em; }
+    .fifa-grad { background: linear-gradient(135deg, #0A1A2F 0%, #0E2440 55%, #123564 100%); }
+    .card-hover { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 18px 40px -12px rgba(30,108,255,.45); }
+    ::-webkit-scrollbar { height: 8px; width: 8px; }
+    ::-webkit-scrollbar-thumb { background: #1E6CFF55; border-radius: 8px; }
+  </style>
+</head>
+<body class="bg-fifa-navy text-slate-100 min-h-screen font-body">
+
+  <!-- Cabeçalho -->
+  <header class="fifa-grad border-b border-white/10 sticky top-0 z-40 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+      <a href="{{ url_for('index') }}" class="flex items-center gap-3 group">
+        <div class="h-10 w-10 rounded-lg bg-fifa-blue grid place-items-center font-display font-700 text-xl shadow-lg shadow-fifa-blue/40 group-hover:scale-105 transition">⚽</div>
+        <div class="leading-none">
+          <div class="font-display text-2xl font-700 tracking-wide">FIFA <span class="text-fifa-gold">DATA</span> APP</div>
+          <div class="text-[11px] uppercase tracking-[.25em] text-slate-300">Top 10 seleções · Copa 2018 →</div>
+        </div>
+      </a>
+      <nav class="hidden sm:flex items-center gap-1 text-sm font-600">
+        <a href="{{ url_for('index') }}" class="px-3 py-2 rounded-lg hover:bg-white/10 transition">Jogadores</a>
+        <a href="{{ url_for('index') }}?sort=caps" class="px-3 py-2 rounded-lg hover:bg-white/10 transition">Convocações</a>
+        <a href="{{ url_for('index') }}?pos=GK" class="px-3 py-2 rounded-lg hover:bg-white/10 transition">Goleiros</a>
+      </nav>
+    </div>
+  </header>
+
+  {% block content %}{% endblock %}
+
+  <!-- Rodapé -->
+  <footer class="border-t border-white/10 mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8 text-center text-slate-400 text-sm">
+      <p class="font-display text-lg text-slate-200">FIFA DATA APP</p>
+      <p class="mt-1">As 10 melhores seleções da FIFA · 11 jogadores mais convocados de cada uma desde a Copa de 2018.</p>
+      <p class="mt-2 text-xs text-slate-500">Projeto demonstrativo · Python · Flask · Tailwind CSS. Dados ilustrativos para fins de portfólio.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

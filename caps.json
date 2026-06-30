@@ -1,0 +1,552 @@
+{
+  "Lionel Messi": {
+    "caps": 201,
+    "goals": 122,
+    "team": "Argentina"
+  },
+  "Ángel Di María": {
+    "caps": 145,
+    "goals": 31,
+    "team": "Argentina"
+  },
+  "Rodrigo De Paul": {
+    "caps": 89,
+    "goals": 2,
+    "team": "Argentina"
+  },
+  "Nicolás Otamendi": {
+    "caps": 134,
+    "goals": 8,
+    "team": "Argentina"
+  },
+  "Nicolás Tagliafico": {
+    "caps": 77,
+    "goals": 1,
+    "team": "Argentina"
+  },
+  "Lautaro Martínez": {
+    "caps": 79,
+    "goals": 37,
+    "team": "Argentina"
+  },
+  "Leandro Paredes": {
+    "caps": 78,
+    "goals": 5,
+    "team": "Argentina"
+  },
+  "Giovani Lo Celso": {
+    "caps": 67,
+    "goals": 4,
+    "team": "Argentina"
+  },
+  "Cristian Romero": {
+    "caps": 53,
+    "goals": 3,
+    "team": "Argentina"
+  },
+  "Nahuel Molina": {
+    "caps": 60,
+    "goals": 1,
+    "team": "Argentina"
+  },
+  "Pedri": {
+    "caps": 43,
+    "goals": 6,
+    "team": "Spain"
+  },
+  "Gavi": {
+    "caps": 31,
+    "goals": 5,
+    "team": "Spain"
+  },
+  "Unai Simón": {
+    "caps": 60,
+    "goals": 0,
+    "team": "Spain"
+  },
+  "Marco Asensio": {
+    "caps": 38,
+    "goals": 2,
+    "team": "Spain"
+  },
+  "Aymeric Laporte": {
+    "caps": 48,
+    "goals": 2,
+    "team": "Spain"
+  },
+  "Harry Kane": {
+    "caps": 116,
+    "goals": 81,
+    "team": "England"
+  },
+  "Raheem Sterling": {
+    "caps": 82,
+    "goals": 20,
+    "team": "England"
+  },
+  "Jordan Henderson": {
+    "caps": 90,
+    "goals": 3,
+    "team": "England"
+  },
+  "Harry Maguire": {
+    "caps": 66,
+    "goals": 7,
+    "team": "England"
+  },
+  "Jordan Pickford": {
+    "caps": 86,
+    "goals": 0,
+    "team": "England"
+  },
+  "Emiliano Martínez": {
+    "caps": 61,
+    "goals": 0,
+    "team": "Argentina"
+  },
+  "Kylian Mbappé": {
+    "caps": 100,
+    "goals": 60,
+    "team": "France"
+  },
+  "Antoine Griezmann": {
+    "caps": 137,
+    "goals": 44,
+    "team": "France"
+  },
+  "Olivier Giroud": {
+    "caps": 137,
+    "goals": 57,
+    "team": "France"
+  },
+  "Hugo Lloris": {
+    "caps": 145,
+    "goals": 0,
+    "team": "France"
+  },
+  "Raphaël Varane": {
+    "caps": 93,
+    "goals": 5,
+    "team": "France"
+  },
+  "Paul Pogba": {
+    "caps": 91,
+    "goals": 11,
+    "team": "France"
+  },
+  "N'Golo Kanté": {
+    "caps": 69,
+    "goals": 2,
+    "team": "France"
+  },
+  "Ousmane Dembélé": {
+    "caps": 61,
+    "goals": 8,
+    "team": "France"
+  },
+  "Lucas Hernández": {
+    "caps": 42,
+    "goals": 0,
+    "team": "France"
+  },
+  "Álvaro Morata": {
+    "caps": 87,
+    "goals": 37,
+    "team": "Spain"
+  },
+  "Sergio Busquets": {
+    "caps": 143,
+    "goals": 2,
+    "team": "Spain"
+  },
+  "Jordi Alba": {
+    "caps": 93,
+    "goals": 9,
+    "team": "Spain"
+  },
+  "Dani Carvajal": {
+    "caps": 52,
+    "goals": 1,
+    "team": "Spain"
+  },
+  "Ferran Torres": {
+    "caps": 59,
+    "goals": 24,
+    "team": "Spain"
+  },
+  "Kyle Walker": {
+    "caps": 96,
+    "goals": 1,
+    "team": "England"
+  },
+  "Declan Rice": {
+    "caps": 75,
+    "goals": 7,
+    "team": "England"
+  },
+  "Bukayo Saka": {
+    "caps": 51,
+    "goals": 14,
+    "team": "England"
+  },
+  "John Stones": {
+    "caps": 90,
+    "goals": 3,
+    "team": "England"
+  },
+  "Neymar": {
+    "caps": 128,
+    "goals": 79,
+    "team": "Brazil"
+  },
+  "Casemiro": {
+    "caps": 88,
+    "goals": 9,
+    "team": "Brazil"
+  },
+  "Thiago Silva": {
+    "caps": 113,
+    "goals": 7,
+    "team": "Brazil"
+  },
+  "Alisson": {
+    "caps": 80,
+    "goals": 0,
+    "team": "Brazil"
+  },
+  "Richarlison": {
+    "caps": 54,
+    "goals": 20,
+    "team": "Brazil"
+  },
+  "Vinícius Júnior": {
+    "caps": 51,
+    "goals": 11,
+    "team": "Brazil"
+  },
+  "Lucas Paquetá": {
+    "caps": 65,
+    "goals": 13,
+    "team": "Brazil"
+  },
+  "Danilo": {
+    "caps": 72,
+    "goals": 1,
+    "team": "Brazil"
+  },
+  "Raphinha": {
+    "caps": 41,
+    "goals": 11,
+    "team": "Brazil"
+  },
+  "Bruno Fernandes": {
+    "caps": 91,
+    "goals": 29,
+    "team": "Portugal"
+  },
+  "Rúben Dias": {
+    "caps": 77,
+    "goals": 3,
+    "team": "Portugal"
+  },
+  "João Cancelo": {
+    "caps": 70,
+    "goals": 12,
+    "team": "Portugal"
+  },
+  "Diogo Jota": {
+    "caps": 49,
+    "goals": 14,
+    "team": "Portugal"
+  },
+  "João Félix": {
+    "caps": 55,
+    "goals": 12,
+    "team": "Portugal"
+  },
+  "Rui Patrício": {
+    "caps": 108,
+    "goals": 0,
+    "team": "Portugal"
+  },
+  "Pepe": {
+    "caps": 141,
+    "goals": 8,
+    "team": "Portugal"
+  },
+  "Rafael Leão": {
+    "caps": 46,
+    "goals": 6,
+    "team": "Portugal"
+  },
+  "Georginio Wijnaldum": {
+    "caps": 96,
+    "goals": 28,
+    "team": "Netherlands"
+  },
+  "Frenkie de Jong": {
+    "caps": 68,
+    "goals": 2,
+    "team": "Netherlands"
+  },
+  "Daley Blind": {
+    "caps": 108,
+    "goals": 3,
+    "team": "Netherlands"
+  },
+  "Steven Bergwijn": {
+    "caps": 35,
+    "goals": 8,
+    "team": "Netherlands"
+  },
+  "Denzel Dumfries": {
+    "caps": 74,
+    "goals": 11,
+    "team": "Netherlands"
+  },
+  "Matthijs de Ligt": {
+    "caps": 52,
+    "goals": 2,
+    "team": "Netherlands"
+  },
+  "Stefan de Vrij": {
+    "caps": 79,
+    "goals": 4,
+    "team": "Netherlands"
+  },
+  "Cody Gakpo": {
+    "caps": 52,
+    "goals": 23,
+    "team": "Netherlands"
+  },
+  "Jasper Cillessen": {
+    "caps": 65,
+    "goals": 0,
+    "team": "Netherlands"
+  },
+  "Romelu Lukaku": {
+    "caps": 128,
+    "goals": 90,
+    "team": "Belgium"
+  },
+  "Thibaut Courtois": {
+    "caps": 111,
+    "goals": 0,
+    "team": "Belgium"
+  },
+  "Toby Alderweireld": {
+    "caps": 127,
+    "goals": 5,
+    "team": "Belgium"
+  },
+  "Jan Vertonghen": {
+    "caps": 157,
+    "goals": 10,
+    "team": "Belgium"
+  },
+  "Axel Witsel": {
+    "caps": 138,
+    "goals": 12,
+    "team": "Belgium"
+  },
+  "Dries Mertens": {
+    "caps": 109,
+    "goals": 21,
+    "team": "Belgium"
+  },
+  "Youri Tielemans": {
+    "caps": 87,
+    "goals": 13,
+    "team": "Belgium"
+  },
+  "Thorgan Hazard": {
+    "caps": 47,
+    "goals": 9,
+    "team": "Belgium"
+  },
+  "Yannick Carrasco": {
+    "caps": 78,
+    "goals": 11,
+    "team": "Belgium"
+  },
+  "Lorenzo Insigne": {
+    "caps": 54,
+    "goals": 10,
+    "team": "Italy"
+  },
+  "Ciro Immobile": {
+    "caps": 57,
+    "goals": 17,
+    "team": "Italy"
+  },
+  "Giorgio Chiellini": {
+    "caps": 117,
+    "goals": 8,
+    "team": "Italy"
+  },
+  "Federico Chiesa": {
+    "caps": 51,
+    "goals": 7,
+    "team": "Italy"
+  },
+  "Nicolò Barella": {
+    "caps": 70,
+    "goals": 10,
+    "team": "Italy"
+  },
+  "Gianluigi Donnarumma": {
+    "caps": 83,
+    "goals": 0,
+    "team": "Italy"
+  },
+  "Leonardo Spinazzola": {
+    "caps": 27,
+    "goals": 0,
+    "team": "Italy"
+  },
+  "Federico Bernardeschi": {
+    "caps": 39,
+    "goals": 6,
+    "team": "Italy"
+  },
+  "Luka Modrić": {
+    "caps": 200,
+    "goals": 29,
+    "team": "Croatia"
+  },
+  "Ivan Perišić": {
+    "caps": 156,
+    "goals": 38,
+    "team": "Croatia"
+  },
+  "Marcelo Brozović": {
+    "caps": 99,
+    "goals": 7,
+    "team": "Croatia"
+  },
+  "Dominik Livaković": {
+    "caps": 77,
+    "goals": 0,
+    "team": "Croatia"
+  },
+  "Josip Brekalo": {
+    "caps": 35,
+    "goals": 4,
+    "team": "Croatia"
+  },
+  "Šime Vrsaljko": {
+    "caps": 52,
+    "goals": 0,
+    "team": "Croatia"
+  },
+  "Dejan Lovren": {
+    "caps": 78,
+    "goals": 5,
+    "team": "Croatia"
+  },
+  "Borna Barišić": {
+    "caps": 35,
+    "goals": 1,
+    "team": "Croatia"
+  },
+  "Mario Pašalić": {
+    "caps": 87,
+    "goals": 12,
+    "team": "Croatia"
+  },
+  "Benjamin Pavard": {
+    "caps": 55,
+    "goals": 5,
+    "team": "France"
+  },
+  "Adrien Rabiot": {
+    "caps": 61,
+    "goals": 7,
+    "team": "France"
+  },
+  "Marcus Rashford": {
+    "caps": 74,
+    "goals": 19,
+    "team": "England"
+  },
+  "Phil Foden": {
+    "caps": 49,
+    "goals": 4,
+    "team": "England"
+  },
+  "Fred": {
+    "caps": 32,
+    "goals": 0,
+    "team": "Brazil"
+  },
+  "Cristiano Ronaldo": {
+    "caps": 230,
+    "goals": 145,
+    "team": "Portugal"
+  },
+  "Bernardo Silva": {
+    "caps": 111,
+    "goals": 14,
+    "team": "Portugal"
+  },
+  "Kevin De Bruyne": {
+    "caps": 121,
+    "goals": 37,
+    "team": "Belgium"
+  },
+  "Eden Hazard": {
+    "caps": 126,
+    "goals": 33,
+    "team": "Belgium"
+  },
+  "Jorginho": {
+    "caps": 57,
+    "goals": 5,
+    "team": "Italy"
+  },
+  "Marco Verratti": {
+    "caps": 55,
+    "goals": 3,
+    "team": "Italy"
+  },
+  "Leonardo Bonucci": {
+    "caps": 121,
+    "goals": 8,
+    "team": "Italy"
+  },
+  "Mateo Kovačić": {
+    "caps": 115,
+    "goals": 5,
+    "team": "Croatia"
+  },
+  "Andrej Kramarić": {
+    "caps": 118,
+    "goals": 36,
+    "team": "Croatia"
+  },
+  "Memphis Depay": {
+    "caps": 111,
+    "goals": 55,
+    "team": "Netherlands"
+  },
+  "Virgil van Dijk": {
+    "caps": 94,
+    "goals": 13,
+    "team": "Netherlands"
+  },
+  "Rodri": {
+    "caps": 64,
+    "goals": 4,
+    "team": "Spain"
+  },
+  "Marquinhos": {
+    "caps": 107,
+    "goals": 7,
+    "team": "Brazil"
+  },
+  "William Carvalho": {
+    "caps": 80,
+    "goals": 5,
+    "team": "Portugal"
+  }
+}

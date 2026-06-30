@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}FIFA Data App · Top 10 Seleções{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="fifa-grad">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <h1 class="font-display text-4xl sm:text-5xl font-700">
+          As estrelas das <span class="text-fifa-gold">10 melhores seleções</span>
+        </h1>
+        <p class="mt-2 text-slate-300 max-w-2xl">
+          Os 11 jogadores mais convocados de cada seleção do top 10 da FIFA desde a Copa de 2018.
+          Clique em um card para ver o perfil completo, gráfico de radar e duelos.
+        </p>
+      </div>
+      <div class="flex gap-3">
+        <div class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-center">
+          <div class="font-display text-3xl text-fifa-sky">{{ teams|length }}</div>
+          <div class="text-xs uppercase tracking-wide text-slate-400">Seleções</div>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-center">
+          <div class="font-display text-3xl text-fifa-gold">{{ total }}</div>
+          <div class="text-xs uppercase tracking-wide text-slate-400">Jogadores</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Filtros -->
+<section class="sticky top-[68px] z-30 bg-fifa-dark/95 backdrop-blur border-b border-white/10">
+  <form method="get" id="filterForm" class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-wrap items-center gap-3">
+    <div class="flex-1 min-w-[200px]">
+      <input type="text" name="q" value="{{ search }}" placeholder="Buscar jogador ou clube…"
+        class="w-full bg-fifa-navy border border-white/15 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-fifa-blue focus:ring-2 focus:ring-fifa-blue/40 placeholder:text-slate-500">
+    </div>
+
+    <select name="team" onchange="document.getElementById('filterForm').submit()"
+      class="bg-fifa-navy border border-white/15 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-fifa-blue">
+      <option value="">🌍 Todas as seleções</option>
+      {% for name, t in teams.items() %}
+      <option value="{{ name }}" {{ 'selected' if sel_team == name }}>{{ t.flag }} {{ name }}</option>
+      {% endfor %}
+    </select>
+
+    <select name="pos" onchange="document.getElementById('filterForm').submit()"
+      class="bg-fifa-navy border border-white/15 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-fifa-blue">
+      <option value="">Todas as posições</option>
+      {% for code, label in positions.items() %}
+      <option value="{{ code }}" {{ 'selected' if sel_pos == code }}>{{ label }}</option>
+      {% endfor %}
+    </select>
+
+    <select name="sort" onchange="document.getElementById('filterForm').submit()"
+      class="bg-fifa-navy border border-white/15 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-fifa-blue">
+      {% for key, (label, _) in sort_options.items() %}
+      <option value="{{ key }}" {{ 'selected' if sel_sort == key }}>↕ {{ label }}</option>
+      {% endfor %}
+    </select>
+
+    <button type="submit" class="bg-fifa-blue hover:bg-fifa-sky transition rounded-lg px-5 py-2.5 text-sm font-600 shadow-lg shadow-fifa-blue/30">Filtrar</button>
+    <a href="{{ url_for('index') }}" class="text-sm text-slate-400 hover:text-white px-2">Limpar</a>
+  </form>
+</section>
+
+<!-- Grid de jogadores -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+  <div class="flex items-center justify-between mb-5">
+    <h2 class="font-display text-xl text-slate-200">
+      {{ players|length }} jogador{{ 'es' if players|length != 1 }}
+      {% if sel_team %}· {{ teams[sel_team].flag }} {{ sel_team }}{% endif %}
+    </h2>
+  </div>
+
+  {% if players %}
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    {% for p in players %}
+    <a href="{{ url_for('player_profile', slug=p.slug) }}"
+       class="card-hover group block rounded-2xl overflow-hidden border border-white/10 bg-gradient-to-b from-fifa-dark to-fifa-navy"
+       style="border-top: 3px solid {{ p.team_color }}">
+      <div class="relative">
+        <img src="{{ p.photo }}" alt="{{ p.name }}" loading="lazy"
+             onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ p.name|urlencode }}&size=400&background={{ p.team_color[1:] }}&color=fff&bold=true'"
+             class="w-full aspect-square object-cover object-top bg-fifa-dark">
+        <span class="absolute top-2 right-2 font-display text-lg font-700 bg-fifa-gold text-fifa-navy rounded-md px-2 leading-7 shadow">{{ p.overall }}</span>
+        <span class="absolute top-2 left-2 text-xs font-600 bg-black/50 rounded px-1.5 py-0.5">{{ p.pos }}</span>
+        <span class="absolute bottom-2 left-2 text-2xl drop-shadow">{{ p.flag }}</span>
+      </div>
+      <div class="p-3">
+        <div class="font-600 text-sm leading-tight truncate group-hover:text-fifa-sky transition">{{ p.name }}</div>
+        <div class="text-xs text-slate-400 truncate">{{ p.club }}</div>
+        <div class="mt-2 flex items-center justify-between text-[11px] text-slate-400">
+          <span>{{ p.age }} anos</span>
+          <span class="text-fifa-sky font-600">{{ p.nt.caps }} jogos · {{ p.nt.goals }} ⚽</span>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="text-center py-20 text-slate-400">
+    <div class="text-5xl mb-3">🔍</div>
+    <p>Nenhum jogador encontrado com esses filtros.</p>
+    <a href="{{ url_for('index') }}" class="inline-block mt-4 text-fifa-sky hover:underline">Limpar filtros</a>
+  </div>
+  {% endif %}
+</main>
+{% endblock %}

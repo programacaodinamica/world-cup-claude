@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Não encontrado · FIFA Data App{% endblock %}
+{% block content %}
+<main class="max-w-3xl mx-auto px-6 py-24 text-center">
+  <div class="text-7xl mb-4">🥅</div>
+  <h1 class="font-display text-5xl font-700">404</h1>
+  <p class="text-slate-400 mt-2">Esse jogador saiu de campo. Página não encontrada.</p>
+  <a href="{{ url_for('index') }}" class="inline-block mt-6 bg-fifa-blue hover:bg-fifa-sky transition rounded-lg px-6 py-3 font-600">Voltar ao grid</a>
+</main>
+{% endblock %}

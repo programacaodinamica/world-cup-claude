@@ -1,0 +1,405 @@
+{% extends "base.html" %}
+{% block title %}{{ player.name }} · FIFA Data App{% endblock %}
+
+{% block content %}
+<!-- Faixa de topo do perfil -->
+<section class="relative overflow-hidden" style="background: linear-gradient(135deg, {{ player.team_color }}33 0%, #0A1A2F 60%);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+    <a href="{{ url_for('index') }}" class="inline-flex items-center gap-1 text-sm text-slate-300 hover:text-white mb-5">← Voltar para o grid</a>
+
+    <div class="flex flex-col md:flex-row gap-6 items-start">
+      <div class="relative shrink-0">
+        <img src="{{ player.photo }}" alt="{{ player.name }}"
+             onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name={{ player.name|urlencode }}&size=400&background={{ player.team_color[1:] }}&color=fff&bold=true'"
+             class="w-40 h-40 sm:w-48 sm:h-48 rounded-2xl object-cover object-top border-4 shadow-2xl"
+             style="border-color: {{ player.team_color }}">
+        <span class="absolute -top-3 -right-3 font-display text-2xl font-700 bg-fifa-gold text-fifa-navy rounded-xl px-3 py-1 shadow-lg">{{ player.overall }}</span>
+      </div>
+
+      <div class="flex-1">
+        <div class="flex items-center gap-2 text-sm text-slate-300">
+          <span class="text-2xl">{{ player.flag }}</span>
+          <span class="font-600">{{ player.team }}</span>
+          <span class="text-slate-500">·</span>
+          <span class="px-2 py-0.5 rounded bg-white/10 text-xs font-600">{{ player.pos_label }}</span>
+        </div>
+        <h1 class="font-display text-4xl sm:text-5xl font-700 mt-1">{{ player.name }}</h1>
+
+        <div class="grid grid-cols-3 gap-3 mt-5 max-w-md">
+          <div class="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
+            <div class="text-xs text-slate-400 uppercase tracking-wide">Idade</div>
+            <div class="font-display text-2xl">{{ player.age }}</div>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
+            <div class="text-xs text-slate-400 uppercase tracking-wide">Clube atual</div>
+            <div class="font-600 text-sm mt-1 leading-tight">{{ player.club }}</div>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
+            <div class="text-xs text-slate-400 uppercase tracking-wide">Copas do Mundo</div>
+            <div class="font-display text-2xl text-fifa-gold">{{ player.world_cups|length }}</div>
+          </div>
+        </div>
+
+        <!-- Dados agregados de seleção (REAIS, da Wikipédia) -->
+        <div class="grid grid-cols-2 gap-3 mt-3 max-w-xs">
+          <div class="bg-fifa-blue/15 border border-fifa-blue/40 rounded-xl px-4 py-3">
+            <div class="text-xs text-slate-300 uppercase tracking-wide">Atuações</div>
+            <div class="font-display text-2xl text-fifa-sky">{{ player.nt.caps }}</div>
+          </div>
+          <div class="bg-fifa-blue/15 border border-fifa-blue/40 rounded-xl px-4 py-3">
+            <div class="text-xs text-slate-300 uppercase tracking-wide">Gols</div>
+            <div class="font-display text-2xl text-fifa-gold">{{ player.nt.goals }}</div>
+          </div>
+        </div>
+        <p class="text-[11px] text-slate-400 mt-1.5">Atuações e gols pela seleção (carreira) — dados reais da Wikipédia.</p>
+
+        <!-- Copas do mundo disputadas -->
+        <div class="mt-4 flex flex-wrap gap-2 items-center">
+          <span class="text-xs uppercase tracking-wide text-slate-400">Copas disputadas:</span>
+          {% for ano in player.world_cups %}
+          <span class="px-2.5 py-1 rounded-full text-xs font-600 bg-fifa-blue/20 border border-fifa-blue/40 text-fifa-sky">🏆 {{ ano }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 grid lg:grid-cols-3 gap-6">
+
+  <!-- Coluna esquerda: radar + métricas -->
+  <div class="lg:col-span-2 space-y-6">
+    <!-- Radar -->
+    <div class="bg-fifa-dark border border-white/10 rounded-2xl p-6">
+      <h2 class="font-display text-2xl mb-1">Radar de desempenho</h2>
+      <p class="text-sm text-slate-400 mb-4">Atributos avaliados conforme a posição ({{ player.pos_label }}).</p>
+      <div class="max-w-md mx-auto">
+        <canvas id="radarChart" height="340"></canvas>
+      </div>
+    </div>
+
+    <!-- Atributos de desempenho (EA SPORTS FC) -->
+    <div class="bg-fifa-dark border border-white/10 rounded-2xl p-6">
+      <div class="flex items-center justify-between mb-1">
+        <h2 class="font-display text-2xl">Atributos de desempenho</h2>
+        <span class="text-[11px] uppercase tracking-wide text-slate-500">Ratings EA SPORTS FC</span>
+      </div>
+      <p class="text-sm text-slate-400 mb-4">Estatísticas de desempenho na escala 0–99.</p>
+
+      <!-- Resumo -->
+      <div class="grid grid-cols-3 gap-3 mb-5">
+        <div class="bg-white/5 rounded-xl px-4 py-3 border border-white/10 text-center">
+          <div class="text-xs text-slate-400 uppercase tracking-wide">Geral</div>
+          <div class="font-display text-3xl text-fifa-gold">{{ player.rating_summary.overall }}</div>
+        </div>
+        <div class="bg-white/5 rounded-xl px-4 py-3 border border-white/10 text-center">
+          <div class="text-xs text-slate-400 uppercase tracking-wide">Média</div>
+          <div class="font-display text-3xl text-fifa-sky">{{ player.rating_summary.average }}</div>
+        </div>
+        <div class="bg-white/5 rounded-xl px-4 py-3 border border-white/10 text-center">
+          <div class="text-xs text-slate-400 uppercase tracking-wide">Destaque</div>
+          <div class="font-600 text-sm mt-1 leading-tight">{{ player.rating_summary.best_label }}</div>
+          <div class="font-display text-xl text-fifa-green">{{ player.rating_summary.best_value }}</div>
+        </div>
+      </div>
+
+      <!-- Barras por atributo -->
+      <div class="space-y-3">
+        {% for a in player.attributes %}
+        <div>
+          <div class="flex items-center justify-between text-sm mb-1">
+            <span class="text-slate-300">{{ a.label }}</span>
+            <span class="font-display text-fifa-sky">{{ a.value }}</span>
+          </div>
+          <div class="h-2 rounded-full bg-fifa-navy overflow-hidden">
+            <div class="h-full rounded-full"
+                 style="width: {{ a.value }}%; background: {% if a.value >= 85 %}#00B140{% elif a.value >= 70 %}#1E6CFF{% else %}#FFC72C{% endif %};"></div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Últimas convocações: jogos REAIS da seleção (atualizados diariamente) -->
+    <div class="bg-fifa-dark border border-white/10 rounded-2xl p-6">
+      <div class="flex items-center justify-between mb-1">
+        <h2 class="font-display text-2xl">Últimos jogos de {{ player.team }}</h2>
+      </div>
+
+      <!-- Indicador de atualização: última coleta x data de hoje -->
+      <div class="flex items-center gap-2 mb-4 text-xs">
+        {% if callups.last_updated == today %}
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-fifa-green/20 text-fifa-green border border-fifa-green/40 font-600">
+          <span class="w-1.5 h-1.5 rounded-full bg-fifa-green animate-pulse"></span>Atualizado hoje
+        </span>
+        {% elif callups.last_updated %}
+        <span class="px-2.5 py-1 rounded-full bg-fifa-gold/20 text-fifa-gold border border-fifa-gold/40 font-600">Atualizado em {{ callups.last_updated }}</span>
+        {% else %}
+        <span class="px-2.5 py-1 rounded-full bg-white/5 text-slate-400 border border-white/10">Sem jogos no momento</span>
+        {% endif %}
+      </div>
+
+      {% if callups.matches %}
+      <div class="space-y-2">
+        {% for c in callups.matches %}
+        <div class="flex items-center gap-3 bg-white/5 rounded-xl px-4 py-3 border border-white/10">
+          <div class="text-xs text-slate-400 w-24 shrink-0">{{ c.date }}</div>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm">
+              <span class="font-600">{{ c.home_team }}</span>
+              {% if c.finished %}
+              <span class="text-fifa-sky font-700 mx-1">{{ c.home_score }} x {{ c.away_score }}</span>
+              {% else %}
+              <span class="text-slate-500 mx-1">x</span>
+              {% endif %}
+              <span class="font-600">{{ c.away_team }}</span>
+            </div>
+            <span class="block text-xs text-slate-400 truncate">{{ c.competition }}</span>
+          </div>
+          {% if c.result == 'V' %}
+          <span class="text-xs font-700 px-2.5 py-1 rounded-full bg-fifa-green/20 text-fifa-green border border-fifa-green/40 shrink-0">Vitória</span>
+          {% elif c.result == 'E' %}
+          <span class="text-xs font-700 px-2.5 py-1 rounded-full bg-fifa-gold/20 text-fifa-gold border border-fifa-gold/40 shrink-0">Empate</span>
+          {% elif c.result == 'D' %}
+          <span class="text-xs font-700 px-2.5 py-1 rounded-full bg-fifa-red/20 text-fifa-red border border-fifa-red/40 shrink-0">Derrota</span>
+          {% else %}
+          <span class="text-xs font-600 px-2.5 py-1 rounded-full bg-white/5 text-slate-300 border border-white/10 shrink-0">Agendado</span>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="text-sm text-slate-400 py-6 text-center">Nenhum jogo recente encontrado.</p>
+      {% endif %}
+
+      <!-- Botão "Mais convocações" -> dados de convocação do jogador -->
+      <a href="{{ callups_url }}" target="_blank" rel="noopener"
+         class="mt-4 w-full inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/15 border border-white/15 transition rounded-xl px-5 py-3 font-600">
+        Mais convocações de {{ player.name }} <span>↗</span>
+      </a>
+      <p class="text-[11px] text-slate-500 mt-3">Jogos reais via TheSportsDB, atualizados diariamente.</p>
+    </div>
+  </div>
+
+  <!-- Coluna direita: notícias em destaque -->
+  <div class="space-y-6">
+    <div class="bg-fifa-dark border border-white/10 rounded-2xl p-6">
+      <div class="flex items-center justify-between mb-1">
+        <h2 class="font-display text-2xl">📰 Notícias em destaque</h2>
+      </div>
+
+      <!-- Indicador de atualização: última coleta x data de hoje -->
+      <div class="flex items-center gap-2 mb-4 text-xs">
+        {% if news.last_updated == today %}
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-fifa-green/20 text-fifa-green border border-fifa-green/40 font-600">
+          <span class="w-1.5 h-1.5 rounded-full bg-fifa-green animate-pulse"></span>Atualizado hoje
+        </span>
+        {% elif news.last_updated %}
+        <span class="px-2.5 py-1 rounded-full bg-fifa-gold/20 text-fifa-gold border border-fifa-gold/40 font-600">Atualizado em {{ news.last_updated }}</span>
+        {% else %}
+        <span class="px-2.5 py-1 rounded-full bg-white/5 text-slate-400 border border-white/10">Sem notícias no momento</span>
+        {% endif %}
+      </div>
+
+      {% if news['items'] %}
+      <div class="space-y-3">
+        {% for n in news['items'] %}
+        <a href="{{ n.url }}" target="_blank" rel="noopener"
+           class="block group bg-white/5 hover:bg-white/10 transition rounded-xl px-4 py-3 border border-white/10 hover:border-fifa-blue/40">
+          <div class="flex items-start gap-3">
+            <span class="font-display text-lg text-fifa-gold/70 leading-none mt-0.5">{{ '%02d'|format(loop.index) }}</span>
+            <div class="min-w-0">
+              <div class="text-sm font-600 group-hover:text-fifa-sky leading-snug">{{ n.title }}</div>
+              <div class="mt-1.5 flex items-center justify-between gap-2 text-xs text-slate-400">
+                <span class="truncate">{{ n.source }}</span>
+                <span class="shrink-0">{{ n.date }}</span>
+              </div>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+      {% else %}
+      <p class="text-sm text-slate-400 py-6 text-center">Nenhuma notícia recente encontrada para este jogador.</p>
+      {% endif %}
+
+      <!-- Botão "Leia mais" -> busca no Google Notícias -->
+      <a href="{{ news.search_url }}" target="_blank" rel="noopener"
+         class="mt-4 w-full inline-flex items-center justify-center gap-2 bg-fifa-blue hover:bg-fifa-sky transition rounded-xl px-5 py-3 font-600 shadow-lg shadow-fifa-blue/30">
+        Leia mais sobre {{ player.name }} <span>↗</span>
+      </a>
+      <p class="text-[11px] text-slate-500 mt-3">Notícias reais via Google Notícias, atualizadas diariamente.</p>
+    </div>
+  </div>
+</main>
+
+<!-- ===================== SEÇÃO DE DUELO ===================== -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 pb-12">
+  <div class="rounded-2xl border border-fifa-gold/30 bg-gradient-to-b from-fifa-dark to-fifa-navy p-6">
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
+      <div>
+        <h2 class="font-display text-3xl font-700">⚔️ Duelo 1 a 1</h2>
+        <p class="text-sm text-slate-400">Selecione um oponente para comparar atributo por atributo.</p>
+      </div>
+      <select id="opponentSelect"
+        class="bg-fifa-navy border border-white/15 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-fifa-gold min-w-[260px]">
+        <option value="">— Escolha um oponente —</option>
+        {% for op in opponents %}
+        <option value="{{ op.id }}">{{ op.flag }} {{ op.name }} ({{ op.team }})</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div id="duelEmpty" class="text-center py-12 text-slate-500">
+      <div class="text-5xl mb-2">🤺</div>
+      <p>Escolha um oponente acima para iniciar o duelo.</p>
+    </div>
+
+    <div id="duelResult" class="hidden">
+      <!-- Placar geral -->
+      <div class="grid grid-cols-3 items-center gap-4 mb-6">
+        <div class="text-right">
+          <img id="dlPhotoA" class="w-20 h-20 rounded-xl object-cover inline-block border-2" style="border-color: {{ player.team_color }}">
+          <div class="font-600 mt-1" id="dlNameA">{{ player.name }}</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display text-4xl"><span id="dlScoreA" class="text-fifa-sky">0</span> <span class="text-slate-500">x</span> <span id="dlScoreB" class="text-fifa-gold">0</span></div>
+          <div id="dlVerdict" class="text-xs uppercase tracking-wide text-slate-400 mt-1">atributos vencidos</div>
+        </div>
+        <div class="text-left">
+          <img id="dlPhotoB" class="w-20 h-20 rounded-xl object-cover inline-block border-2 border-fifa-gold">
+          <div class="font-600 mt-1" id="dlNameB">—</div>
+        </div>
+      </div>
+
+      <!-- Radar comparativo -->
+      <div class="grid md:grid-cols-2 gap-6 items-center">
+        <div class="max-w-sm mx-auto w-full">
+          <canvas id="duelRadar" height="320"></canvas>
+        </div>
+        <!-- Tabela de atributos -->
+        <div id="duelTable" class="space-y-2"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Dados do jogador atual para o JS -->
+<script id="playerData" type="application/json">{{ player|tojson }}</script>
+<script>
+const PLAYER = JSON.parse(document.getElementById('playerData').textContent);
+const TEAM_COLOR = PLAYER.team_color;
+
+// ---------- Radar principal ----------
+new Chart(document.getElementById('radarChart'), {
+  type: 'radar',
+  data: {
+    labels: PLAYER.stats.axes,
+    datasets: [{
+      label: PLAYER.name,
+      data: PLAYER.stats.values,
+      backgroundColor: 'rgba(30,108,255,.25)',
+      borderColor: '#3DA6FF',
+      borderWidth: 2,
+      pointBackgroundColor: '#FFC72C',
+      pointRadius: 4,
+    }]
+  },
+  options: radarOptions()
+});
+
+function radarOptions() {
+  return {
+    responsive: true,
+    plugins: { legend: { labels: { color: '#cbd5e1' } } },
+    scales: {
+      r: {
+        min: 20, max: 100,
+        angleLines: { color: 'rgba(255,255,255,.12)' },
+        grid: { color: 'rgba(255,255,255,.12)' },
+        pointLabels: { color: '#e2e8f0', font: { size: 12, family: 'Inter' } },
+        ticks: { color: '#64748b', backdropColor: 'transparent', stepSize: 20 }
+      }
+    }
+  };
+}
+
+// ---------- Duelo ----------
+let duelChart = null;
+const select = document.getElementById('opponentSelect');
+select.addEventListener('change', async () => {
+  const oppId = select.value;
+  if (!oppId) {
+    document.getElementById('duelResult').classList.add('hidden');
+    document.getElementById('duelEmpty').classList.remove('hidden');
+    return;
+  }
+  const res = await fetch(`/api/compare/${PLAYER.id}/${oppId}`);
+  const data = await res.json();
+  renderDuel(data);
+});
+
+function renderDuel(data) {
+  const { a, b, duel } = data;
+  document.getElementById('duelEmpty').classList.add('hidden');
+  document.getElementById('duelResult').classList.remove('hidden');
+
+  document.getElementById('dlPhotoA').src = a.photo;
+  document.getElementById('dlPhotoB').src = b.photo;
+  document.getElementById('dlNameA').textContent = a.name;
+  document.getElementById('dlNameB').textContent = b.name;
+
+  // Placar e veredito
+  if (duel) {
+    document.getElementById('dlScoreA').textContent = duel.wins_a;
+    document.getElementById('dlScoreB').textContent = duel.wins_b;
+    let verdict = 'Empate técnico';
+    if (duel.wins_a > duel.wins_b) verdict = `${a.name} leva a melhor`;
+    else if (duel.wins_b > duel.wins_a) verdict = `${b.name} leva a melhor`;
+    document.getElementById('dlVerdict').textContent = verdict;
+    renderDuelTable(duel.rounds, a, b);
+  } else {
+    document.getElementById('dlScoreA').textContent = a.overall;
+    document.getElementById('dlScoreB').textContent = b.overall;
+    document.getElementById('dlVerdict').textContent = 'avaliação geral (posições diferentes)';
+    document.getElementById('duelTable').innerHTML =
+      `<p class="text-sm text-slate-400">Os jogadores têm posições diferentes, então os atributos do radar não são diretamente comparáveis. Comparamos a avaliação geral: <b class="text-fifa-sky">${a.name} ${a.overall}</b> x <b class="text-fifa-gold">${b.overall} ${b.name}</b>.</p>`;
+  }
+
+  // Radar comparativo
+  if (duelChart) duelChart.destroy();
+  duelChart = new Chart(document.getElementById('duelRadar'), {
+    type: 'radar',
+    data: {
+      labels: a.stats.axes,
+      datasets: [
+        { label: a.name, data: a.stats.values,
+          backgroundColor: 'rgba(61,166,255,.20)', borderColor: '#3DA6FF', borderWidth: 2, pointBackgroundColor: '#3DA6FF', pointRadius: 3 },
+        { label: b.name, data: b.stats.values,
+          backgroundColor: 'rgba(255,199,44,.18)', borderColor: '#FFC72C', borderWidth: 2, pointBackgroundColor: '#FFC72C', pointRadius: 3 },
+      ]
+    },
+    options: radarOptions()
+  });
+}
+
+function renderDuelTable(rounds, a, b) {
+  const html = rounds.map(r => {
+    const aWin = r.winner === 'a', bWin = r.winner === 'b';
+    return `
+    <div class="bg-white/5 border border-white/10 rounded-lg px-3 py-2">
+      <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+        <span class="${aWin ? 'text-fifa-sky font-700' : ''}">${r.a}</span>
+        <span class="uppercase tracking-wide">${r.axis}</span>
+        <span class="${bWin ? 'text-fifa-gold font-700' : ''}">${r.b}</span>
+      </div>
+      <div class="flex h-2 rounded-full overflow-hidden bg-fifa-navy">
+        <div class="bg-fifa-sky" style="width:${r.a/(r.a+r.b)*100}%"></div>
+        <div class="bg-fifa-gold" style="width:${r.b/(r.a+r.b)*100}%"></div>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('duelTable').innerHTML = html;
+}
+</script>
+{% endblock %}
